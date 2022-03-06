@@ -1,15 +1,13 @@
 package hu.webuni.university.repository;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
-
-import com.querydsl.core.types.Predicate;
 
 import hu.webuni.university.model.Course;
 import hu.webuni.university.model.QCourse;
@@ -40,4 +38,5 @@ public interface CourseRepository
 //	@EntityGraph(attributePaths = {"students", "teachers"})
 //	Iterable<Course> findAllWithRelationships(Predicate predicate);
 
+	List<Course> findByName(String name);
 }

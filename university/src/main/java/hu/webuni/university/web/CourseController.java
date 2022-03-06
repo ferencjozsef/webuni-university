@@ -1,9 +1,11 @@
 package hu.webuni.university.web;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
@@ -23,6 +25,7 @@ import com.querydsl.core.types.Predicate;
 import hu.webuni.university.dto.CourseDto;
 import hu.webuni.university.mapper.CourseMapper;
 import hu.webuni.university.model.Course;
+import hu.webuni.university.model.HistoryData;
 import hu.webuni.university.repository.CourseRepository;
 import hu.webuni.university.service.CourseService;
 import lombok.RequiredArgsConstructor;
@@ -67,4 +70,16 @@ public class CourseController {
 		
 		return courseMapper.courseSummaryToDto(course);
 	}
+	
+	@GetMapping("/{id}/history")
+	public List<HistoryData<CourseDto>> getHistory(@PathVariable Integer id) {
+		List<HistoryData<Course>> courses = courseService.getHistoryById(id);
+		return courseMapper.coursesHistoryToDtos(courses);
+	}
+	
+	@GetMapping("/{id}/versions")
+	public CourseDto getVersionAt(@PathVariable Integer id, @RequestParam @NotNull @Valid OffsetDateTime at) {
+		return courseMapper.courseToDto(courseService.getVersionAt(id, at));
+	}
+
 }
