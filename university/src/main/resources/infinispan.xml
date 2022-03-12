@@ -13,7 +13,7 @@
 
    <cache-container name="SpringCacheManager">
 
-      <local-cache name="curseSearchResults" >
+      <local-cache name="courseSearchResults" >
          <transaction mode="NONE" />
          <expiration max-idle="10000" interval="2000"/>
          <memory max-count="10000"/>

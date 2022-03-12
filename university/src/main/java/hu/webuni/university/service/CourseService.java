@@ -36,10 +36,12 @@ public class CourseService {
 	private final CourseRepository courseRepository;
 	
 	@Transactional
-	@Cacheable("curseSearchResults")
+	@Cacheable("courseSearchResults")
 	public List<Course> searchWithRelationships(Predicate predicate, Pageable pageable) {
+		
 //		List<Course> courses = courseRepository.findAll(predicate, "Course.students");
 //		courses = courseRepository.findAll(QCourse.course.in(courses), "Course.teachers");
+		
 		List<Course> courses = courseRepository.findAll(predicate, pageable).getContent();
 		BooleanExpression inByCourseId = QCourse.course.in(courses);
 		courses = courseRepository.findAll(inByCourseId, "Course.teachers", Sort.unsorted());
